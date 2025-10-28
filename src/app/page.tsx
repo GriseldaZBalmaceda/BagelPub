@@ -3,12 +3,12 @@ import { Hero } from "./components/Hero"
 import { AboutSection } from "./components/About-Section"
 import { getAboutSection } from "./api/getAboutSection"
 export default async function Home() {
-  const hero = await getHero()
-  const aboutSection = await getAboutSection()
+  // const hero = await getHero()
+  // const aboutSection = await getAboutSection()
   return (
     <div className="h-full items-center justify-items-center overflow-hidden">
-      <Hero heroData={hero} />
-      <AboutSection aboutSectionData={aboutSection} />
+      <Hero heroData={undefined} />
+      <AboutSection aboutSectionData={undefined} />
     </div>
   )
 }

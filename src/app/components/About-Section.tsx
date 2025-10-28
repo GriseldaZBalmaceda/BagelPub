@@ -26,7 +26,13 @@ export const AboutSection = ({
   // Now you can destructure the hero data
 
   console.log(aboutSectionData, "about")
-  const { subtitle, paragraph, aboutSectionImage } = aboutSectionData
+  const { subtitle, paragraph, aboutSectionImage } = {
+    subtitle: "Food, service & a vibe you'll look forward to every time.",
+    paragraph:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaeiusmod tempor incididunt ut labore et.",
+    aboutSectionImage:
+      "wix:image://v1/72a73c_0fa4bf0b066e4f80892f028f08a823eb~mv2.jpg/3Y1A5460.jpg#originWidth=6398&originHeight=4266",
+  }
 
   const image = wixMediaToUrl(aboutSectionImage)
   return (
