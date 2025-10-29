@@ -37,12 +37,12 @@ export const AboutSection = ({
   const image = wixMediaToUrl(aboutSectionImage)
   return (
     <div className="flex flex-col md:flex-row w-full h-full">
-      <div className="md:w-1/2 flex flex-col text-center justify-center items-center p-5 ">
+      <div className="md:w-1/2 flex flex-col text-center justify-center items-center p-[100px] ">
         <p className="text-6xl">About Us</p>
         <p className="text-2xl mb-3">{subtitle}</p>
         <p>{paragraph}</p>
-        <button className="w-[100px] h-[30px] bg-[#2c4735] mt-3 text-[#e4d1a7] rounded-3 ">
-          Hi
+        <button className="min-w-[150px] bg-[#2c4735] mt-3 text-[#e4d1a7] rounded-3 py-3 px-5 rounded">
+          <p>Learn More</p>
         </button>
       </div>
       <div className="md:w-1/2">

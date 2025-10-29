@@ -1,6 +1,6 @@
 "use client"
 
-import React, { createContext, useEffect, useState, ReactNode } from "react"
+import { createContext, useEffect, useState, type ReactNode } from "react"
 import { createClient, OAuthStrategy } from "@wix/sdk"
 
 export type WixClient = ReturnType<typeof createClient>

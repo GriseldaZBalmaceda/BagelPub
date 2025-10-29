@@ -91,46 +91,54 @@ export const Hero = ({ heroData }: { heroData: any }) => {
           </div>
         </div>
       </div>
-      <div className="absolute z-10  m-2 top-[20%]  text-center pl-[2rem] pr-[2rem] md:pl-[16rem] md:pr-[16rem]">
-        <div className="">
-          <p className="text-5xl md:text-8xl text-[#e4d1a7]">{heroText}</p>
-        </div>
-        <div className="flex flex-row flex-row center justify-center justify-around w-full gap-2 mt-8 h-40px ">
-          <div className="w-full md:w-1/8 max-h-30px text-center  bg-[#e4d1a7] p-5 rounded">
-            {cta1}
+
+      {/* Hero carousel container */}
+      <div className="relative w-full">
+        {/* Hero content overlay - centered on carousel */}
+        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+          <div className="w-full px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 max-w-7xl">
+            <div className="text-center">
+              <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[#e4d1a7] font-bold leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
+                {heroText}
+              </p>
+            </div>
+            <div className="flex flex-row justify-center items-center gap-4 md:gap-6 mt-6 md:mt-8">
+              <div className="text-center bg-[#e4d1a7] text-black px-6 py-3 md:px-8 md:py-4 rounded font-semibold text-sm md:text-base lg:text-lg hover:bg-[#d4c197] transition-colors cursor-pointer pointer-events-auto shadow-lg">
+                {cta1}
+              </div>
+              <div className="text-center border-4 border-[#e4d1a7] text-[#e4d1a7] px-6 py-3 md:px-8 md:py-4 rounded font-semibold text-sm md:text-base lg:text-lg hover:bg-[#e4d1a7] hover:text-black transition-all cursor-pointer pointer-events-auto shadow-lg">
+                {cta2}
+              </div>
+            </div>
           </div>
-          <div className="w-full md:w-1/8 text-center border-4 text-[#e4d1a7] p-5 ">
-            {" "}
-            {cta2}
-          </div>
         </div>
+
+        <Swiper
+          spaceBetween={0}
+          centeredSlides={true}
+          autoplay={{
+            delay: 2000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Autoplay, Pagination]}
+          loop={true}
+          className="mySwiper"
+        >
+          {heroImages?.map((image: any, index: number) => {
+            const url = wixMediaToUrl(image.src)
+            return (
+              <>
+                <SwiperSlide key={index}>
+                  <img src={url || ""} alt={`Hero ${index + 1}`}></img>
+                </SwiperSlide>
+              </>
+            )
+          })}
+        </Swiper>
       </div>
-      <div></div>
-      <Swiper
-        spaceBetween={0}
-        centeredSlides={true}
-        autoplay={{
-          delay: 2000,
-          disableOnInteraction: false,
-        }}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Autoplay, Pagination]}
-        loop={true}
-        className="mySwiper"
-      >
-        {heroImages?.map((image: any, index: number) => {
-          const url = wixMediaToUrl(image.src)
-          return (
-            <>
-              <SwiperSlide key={index}>
-                <img src={url || ""} alt={`Hero ${index + 1}`}></img>
-              </SwiperSlide>
-            </>
-          )
-        })}
-      </Swiper>
     </>
   )
 }
