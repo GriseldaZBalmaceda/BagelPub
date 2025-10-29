@@ -131,7 +131,7 @@ export const Hero = ({ heroData }: { heroData: any }) => {
             const url = wixMediaToUrl(image.src)
             return (
               <>
-                <SwiperSlide key={index}>
+                <SwiperSlide className="swiper dark" key={index}>
                   <img src={url || ""} alt={`Hero ${index + 1}`}></img>
                 </SwiperSlide>
               </>

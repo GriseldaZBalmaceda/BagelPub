@@ -78,11 +78,15 @@ export const CarrouselAnnouncement = () => {
         return (
           <>
             <div className="relative h-full">
-              <SwiperSlide key={index}>
-                <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-                  <div className="bg-black w-1/2 h-1/2">hi</div>
+              <SwiperSlide className="max-h-[600px]" key={index}>
+                <div className="absolute inset-0 z-12 flex items-center justify-center pointer-events-none">
+                  <div className="bg-[#e4d1a7] w-1/2 h-3/4">hi</div>
                 </div>
-                <img src={url || ""} alt={`Hero ${index + 1}`}></img>
+                <img
+                  className="dark"
+                  src={url || ""}
+                  alt={`Hero ${index + 1}`}
+                ></img>
               </SwiperSlide>
             </div>
           </>
