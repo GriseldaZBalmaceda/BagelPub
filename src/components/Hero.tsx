@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/pagination"
 import "swiper/css/navigation"
-import { wixMediaToUrl } from "../helperFunctions/getWixImage"
+import { wixMediaToUrl } from "@/helperFunctions/getWixImage"
 import { Pagination, Autoplay, Navigation } from "swiper/modules"
 
 export const Hero = ({ heroData }: { heroData: any }) => {
@@ -66,32 +66,6 @@ export const Hero = ({ heroData }: { heroData: any }) => {
 
   return (
     <>
-      <div className="absolute z-10 w-full m-2">
-        <div className="hidden md:flex justify-around">
-          <div>
-            <h4>Menu</h4>
-          </div>
-          <div>
-            <h4>About Us</h4>
-          </div>
-          <div>
-            <h4>Catering</h4>
-          </div>
-          <div>
-            <h4>Logo</h4>
-          </div>
-          <div>
-            <h4>Locations</h4>
-          </div>
-          <div>
-            <h4>Hiring</h4>
-          </div>
-          <div>
-            <h4>Order Now</h4>
-          </div>
-        </div>
-      </div>
-
       {/* Hero carousel container */}
       <div className="relative w-full">
         {/* Hero content overlay - centered on carousel */}

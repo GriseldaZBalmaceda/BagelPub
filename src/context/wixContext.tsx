@@ -1,5 +1,3 @@
-"use client"
-
 import { createContext, useEffect, useState, type ReactNode } from "react"
 import { createClient, OAuthStrategy } from "@wix/sdk"
 

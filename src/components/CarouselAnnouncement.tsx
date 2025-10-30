@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/pagination"
 import "swiper/css/navigation"
-import { wixMediaToUrl } from "../helperFunctions/getWixImage"
+import { wixMediaToUrl } from "@/helperFunctions/getWixImage"
 import { Pagination, Autoplay, Navigation } from "swiper/modules"
 
 export const CarrouselAnnouncement = () => {

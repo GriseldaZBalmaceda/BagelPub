@@ -1,4 +1,4 @@
-import { getWixClientServer } from "../lib/wixClient"
+import { getWixClientServer } from "@/lib/wixClient"
 
 export async function getAboutSection() {
   // const wixClient = await getWixClientServer()

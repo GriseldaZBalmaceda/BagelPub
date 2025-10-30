@@ -1,15 +1,10 @@
-"use client"
+import { Hero } from "@/components/Hero"
+import { TwoColumSection } from "@/components/TwoColumSection"
+import { CarrouselAnnouncement } from "@/components/CarouselAnnouncement"
+import { LocationColumns } from "@/components/LocationColumns"
+import { Footer } from "@/components/Footer"
 
-import { getHero } from "./api/getHeader"
-import { Hero } from "./components/Hero"
-import { TwoColumSection } from "./components/TwoColumSection"
-// import { getAboutSection } from "./api/getAboutSection"
-import { CarrouselAnnouncement } from "./components/CarouselAnnouncement"
-import { LocationColumns } from "./components/LocationColumns"
-import { Footer } from "./components/Footer"
-export default async function Home() {
-  // const hero = await getHero()
-  // const aboutSection = await getAboutSection()
+export default function Home() {
   const aboutSectionDate = {
     title: "About Us",
     subtitle: "Food, service & a vibe you'll look forward to every time.",
