@@ -3,8 +3,8 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
-import { ChevronDownIcon } from "lucide-react"
+} from "@/components/ui/accordion";
+import { ChevronDownIcon } from "lucide-react";
 
 const Locations = () => {
   return (
@@ -38,10 +38,9 @@ const Locations = () => {
           collapsible
           className="w-full  h-full flex flex-col"
           defaultValue="item-1"
-          orientation="horizontal"
-        >
+          orientation="horizontal">
           <AccordionItem className="relative h-full" value="item-1">
-            <AccordionTrigger className="h-full p-0 [&_svg]:absolute [&_svg]:left-1/2 [&_svg]:-translate-x-1/2 [&_svg]:bottom-[10%] [&_.lucide-chevron-down]:h-15 [&_.lucide-chevron-down]:w-15 [&_svg]:animate-bounce [&_svg]:text-[#e4d1a7]">
+            <AccordionTrigger className="h-full p-0 [&_svg]:absolute [&_svg]:left-1/2 [&_svg]:-translate-x-1/2 [&_svg]:bottom-[10%] [&_.lucide-chevron-down]:h-15 [&_.lucide-chevron-down]:w-15 [&_svg]:animate-bounce [&_svg]:text-[#e4d1a7] cursor-pointer">
               <>
                 <img
                   className="h-full w-full dark max-h-[600px] object-cover"
@@ -63,7 +62,7 @@ const Locations = () => {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem className="relative h-full" value="item-2">
-            <AccordionTrigger className="h-full p-0 [&_svg]:absolute [&_svg]:left-1/2 [&_svg]:-translate-x-1/2 [&_svg]:bottom-[10%] [&_.lucide-chevron-down]:h-15 [&_.lucide-chevron-down]:w-15 [&_svg]:animate-bounce [&_svg]:text-[#e4d1a7]">
+            <AccordionTrigger className="h-full p-0 [&_svg]:absolute [&_svg]:left-1/2 [&_svg]:-translate-x-1/2 [&_svg]:bottom-[10%] [&_.lucide-chevron-down]:h-15 [&_.lucide-chevron-down]:w-15 [&_svg]:animate-bounce [&_svg]:text-[#e4d1a7] cursor-pointer">
               <>
                 <img
                   className="h-full w-full dark max-h-[600px] object-cover"
@@ -87,7 +86,7 @@ const Locations = () => {
         </Accordion>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Locations
+export default Locations;

@@ -42,11 +42,11 @@
     --foreground: #ededed;
   }
 }
-h1 {
+.specialFont {
   font-family: "Metamorphous", cursive;
   font-weight: 400;
   font-style: normal;
-  font-size: 5rem;
+
   color: #e4d1a7;
 }
 h4 {
@@ -125,6 +125,7 @@ body {
   max-height: 800px;
 }
 .swiper {
+  height: 500px;
   max-height: 800px;
 }
 .mySwiper img {
@@ -192,6 +193,10 @@ body {
       height: 0;
     }
   }
+}
+
+@theme {
+  --color-bagelCream: #e4d1a7;
 }
 
 @layer base {

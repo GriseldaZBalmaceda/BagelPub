@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react"
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import "swiper/css"
-import "swiper/css/pagination"
-import "swiper/css/navigation"
-import { wixMediaToUrl } from "@/helperFunctions/getWixImage"
-import { Pagination, Autoplay, Navigation } from "swiper/modules"
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { wixMediaToUrl } from "@/helperFunctions/getWixImage";
+import { Pagination, Autoplay, Navigation } from "swiper/modules";
 
 export const Hero = ({ heroData }: { heroData: any }) => {
-  console.log(heroData)
+  console.log(heroData);
 
   // Now you can destructure the hero data
 
@@ -62,12 +62,12 @@ export const Hero = ({ heroData }: { heroData: any }) => {
     cta1: "View Menu",
 
     heroText: "Hand-rolled. Kettle-boiled. Baked daily.",
-  }
+  };
 
   return (
     <>
       {/* Hero carousel container */}
-      <div className="relative w-full">
+      <div className="relative w-full m-0 p-0">
         {/* Hero content overlay - centered on carousel */}
         <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
           <div className="w-full px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 max-w-7xl">
@@ -77,10 +77,10 @@ export const Hero = ({ heroData }: { heroData: any }) => {
               </p>
             </div>
             <div className="flex flex-row justify-center items-center gap-4 md:gap-6 mt-6 md:mt-8">
-              <div className="text-center bg-[#e4d1a7] text-black px-6 py-3 md:px-8 md:py-4 rounded font-semibold text-sm md:text-base lg:text-lg hover:bg-[#d4c197] transition-colors cursor-pointer pointer-events-auto shadow-lg">
+              <div className=" min-h-[65px] flex items-center bg-[#e4d1a7] text-black px-6 py-3 md:px-8 md:py-4 rounded font-semibold text-sm md:text-base lg:text-lg hover:bg-[#d4c197] transition-colors cursor-pointer pointer-events-auto shadow-lg">
                 {cta1}
               </div>
-              <div className="text-center border-4 border-[#e4d1a7] text-[#e4d1a7] px-6 py-3 md:px-8 md:py-4 rounded font-semibold text-sm md:text-base lg:text-lg hover:bg-[#e4d1a7] hover:text-black transition-all cursor-pointer pointer-events-auto shadow-lg">
+              <div className="flex items-center min-h-[65px] text-center border-4 border-[#e4d1a7] text-[#e4d1a7] px-6 py-3 md:px-8 md:py-4 rounded font-semibold text-sm md:text-base lg:text-lg hover:bg-[#e4d1a7] hover:text-black transition-all cursor-pointer pointer-events-auto shadow-lg">
                 {cta2}
               </div>
             </div>
@@ -99,20 +99,19 @@ export const Hero = ({ heroData }: { heroData: any }) => {
           }}
           modules={[Autoplay, Pagination]}
           loop={true}
-          className="mySwiper"
-        >
+          className="mySwiper">
           {heroImages?.map((image: any, index: number) => {
-            const url = wixMediaToUrl(image.src)
+            const url = wixMediaToUrl(image.src);
             return (
               <>
                 <SwiperSlide className="swiper dark" key={index}>
                   <img src={url || ""} alt={`Hero ${index + 1}`}></img>
                 </SwiperSlide>
               </>
-            )
+            );
           })}
         </Swiper>
       </div>
     </>
-  )
-}
+  );
+};
