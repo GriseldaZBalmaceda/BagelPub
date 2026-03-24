@@ -1,108 +1,82 @@
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+"use client"
 
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import { wixMediaToUrl } from "@/helperFunctions/getWixImage";
-import { Pagination, Autoplay, Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react"
+import "swiper/css"
+import "swiper/css/pagination"
+import { wixMediaToUrl } from "@/helperFunctions/getWixImage"
+import { Pagination, Autoplay } from "swiper/modules"
+import type { ShowcaseItem } from "@/schemas/wix"
 
-export const CarrouselAnnouncement = () => {
-  // const { heroImages, cta1, cta2, heroText } = heroData || {}
-  const { heroImages, cta1, cta2, heroText } = {
-    cta2: "Order Now",
-    heroImages: [
-      {
-        description: "",
-        fileName: "Hero1.jpg",
-        slug: "72a73c_6f2b2bf97dba447ca878d966a9f38ac6~mv2.jpg",
-        alt: "",
-        src: "wix:image://v1/72a73c_6f2b2bf97dba447ca878d966a9f38ac6~mv2.jpg/Hero1.jpg#originWidth=6720&originHeight=4480",
-        title: "Hero1.jpg",
-        type: "image",
-        settings: [Object],
-      },
-      // {
-      //   description: "",
-      //   fileName: "3Y1A5512.jpg",
-      //   slug: "72a73c_0617f89da2394f95a7b2e3d5b054407c~mv2.jpg",
-      //   alt: "",
-      //   src: "wix:image://v1/72a73c_0617f89da2394f95a7b2e3d5b054407c~mv2.jpg/3Y1A5512.jpg#originWidth=6720&originHeight=4480",
-      //   title: "3Y1A5512.jpg",
-      //   type: "image",
-      //   settings: [Object],
-      // },
-      // {
-      //   description: "",
-      //   fileName: "3Y1A5460.jpg",
-      //   slug: "72a73c_0fa4bf0b066e4f80892f028f08a823eb~mv2.jpg",
-      //   alt: "",
-      //   src: "wix:image://v1/72a73c_0fa4bf0b066e4f80892f028f08a823eb~mv2.jpg/3Y1A5460.jpg#originWidth=6398&originHeight=4266",
-      //   title: "3Y1A5460.jpg",
-      //   type: "image",
-      //   settings: [Object],
-      // },
-      // {
-      //   description: "",
-      //   fileName: "3Y1A5536.jpg",
-      //   slug: "72a73c_f83f74043f494c6f8351c8407e7f5252~mv2.jpg",
-      //   alt: "",
-      //   src: "wix:image://v1/72a73c_f83f74043f494c6f8351c8407e7f5252~mv2.jpg/3Y1A5536.jpg#originWidth=6720&originHeight=4480",
-      //   title: "3Y1A5536.jpg",
-      //   type: "image",
-      //   settings: [Object],
-      // },
-    ],
-    cta1: "View Menu",
+export const CarrouselAnnouncement = ({
+  showcaseItems,
+}: {
+  showcaseItems: ShowcaseItem[]
+}) => {
+  const slides = showcaseItems.filter(
+    (item) => item.image_fld || item.title_fld || item.subtitle || item.description_fld
+  )
+  if (slides.length === 0) return null
 
-    heroText: "Hand-rolled. Kettle-boiled. Baked daily.",
-  };
   return (
     <Swiper
+      className="mySwiper h-[min(75vh,700px)] w-full"
       spaceBetween={0}
-      centeredSlides={true}
-      autoplay={{
-        delay: 5000,
-        disableOnInteraction: false,
-      }}
-      pagination={{
-        clickable: true,
-      }}
+      centeredSlides
+      autoplay={
+        slides.length > 1
+          ? {
+              delay: 5000,
+              disableOnInteraction: false,
+            }
+          : false
+      }
+      pagination={{ clickable: true }}
       modules={[Autoplay, Pagination]}
-      loop={true}
-      className="mySwiper ">
-      {heroImages?.map((image: any, index: number) => {
-        const url = wixMediaToUrl(image.src);
+      loop={slides.length > 1}
+    >
+      {slides.map((item, index) => {
+        const imageUrl = wixMediaToUrl(item.image_fld ?? "")
+        const title = item.title_fld ?? ""
+        const subtitle = item.subtitle ?? ""
+        const cta = item.cta?.trim()
+        const isExternal = item.externalLink === true
+        const slideKey =
+          typeof item._id === "string" && item._id.length > 0 ? item._id : index
+
         return (
-          <>
-            <div className="relative h-full">
-              <SwiperSlide className="" key={index}>
-                <div className="absolute inset-0 z-12 flex items-center justify-center pointer-events-none">
-                  <div className="bg-[#e4d1a7] w-3/4 h-3/4 max-w-[500px] rounded justify-center flex flex-col">
-                    <p className=" text-4xl lg:text-6xl">Menu</p>
-                    <p className="text-xl mb-3">
-                      Bagels arent the only thing we got brewing
-                    </p>
-                    <ul>
-                      <li>Lox sandwiches</li>
-                      <li>Juices</li>
-                    </ul>
-                    <div>
-                      <button className="min-w-[150px] bg-[#2c4735] mt-3 text-[#e4d1a7] rounded-3 py-3 px-5 rounded w-[25%]">
-                        <p>View Menu</p>
-                      </button>
-                    </div>
+          <SwiperSlide key={slideKey} className="relative">
+            <div className="absolute inset-0 z-10 flex items-center justify-center px-4">
+              <div className="bg-[#e4d1a7] w-full max-w-[560px] rounded p-6 md:p-10 text-center">
+                {title && <p className="text-4xl lg:text-6xl">{title}</p>}
+                {subtitle && <p className="text-xl mb-3">{subtitle}</p>}
+                {item.description_fld && (
+                  <div
+                    className="prose prose-neutral max-w-none [&_ul]:text-left [&_ul]:mx-auto [&_ul]:w-fit"
+                    dangerouslySetInnerHTML={{ __html: item.description_fld }}
+                  />
+                )}
+                {cta && (
+                  <div className="mt-4">
+                    <a
+                      href={cta}
+                      target={isExternal ? "_blank" : undefined}
+                      rel={isExternal ? "noreferrer" : undefined}
+                      className="min-w-[150px] inline-block bg-[#2c4735] text-[#e4d1a7] py-3 px-5 rounded"
+                    >
+                      View
+                    </a>
                   </div>
-                </div>
-                <img
-                  className="dark"
-                  src={url || ""}
-                  alt={`Hero ${index + 1}`}></img>
-              </SwiperSlide>
+                )}
+              </div>
             </div>
-          </>
-        );
+            {imageUrl ? (
+              <img className="h-full w-full object-cover brightness-[0.55]" src={imageUrl} alt="" />
+            ) : (
+              <div className="h-full w-full bg-[#2c4735]" />
+            )}
+          </SwiperSlide>
+        )
       })}
     </Swiper>
-  );
-};
+  )
+}

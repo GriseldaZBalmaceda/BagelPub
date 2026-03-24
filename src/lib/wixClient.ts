@@ -1,22 +1,16 @@
-import { createClient, OAuthStrategy } from "@wix/sdk"
-import { items } from "@wix/data"
-// Singleton Wix client instance for server-side operations
-let wixClientServerInstance: any = null
+import { createWixAppClient, type WixClient } from "./wixAppClient"
 
-// Create and cache a single Wix client instance for server-side use
+let wixClientServerInstance: WixClient | null = null
+
+export type { WixClient }
+
+/** Singleton Wix client for server-side use (SSR, route handlers). */
 export async function getWixClientServer() {
   if (wixClientServerInstance) {
     return wixClientServerInstance
   }
 
-  const wixClient = createClient({
-    modules: {
-      items,
-    },
-    auth: OAuthStrategy({
-      clientId: process.env.NEXT_PUBLIC_WIX_CLIENT_ID!,
-    }),
-  })
+  const wixClient = createWixAppClient()
 
   // Generate visitor tokens for anonymous access
   const tokens = await wixClient.auth.generateVisitorTokens()

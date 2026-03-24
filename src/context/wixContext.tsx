@@ -1,8 +1,13 @@
 import { createContext, useEffect, useState, type ReactNode } from "react"
-import { createClient, OAuthStrategy } from "@wix/sdk"
+import {
+  createWixAppClient,
+  type WixClient,
+} from "@/lib/wixAppClient"
 
-export type WixClient = ReturnType<typeof createClient>
-export const WixClientContext = createContext<WixClient | null>(null)
+export type { WixClient }
+export const WixClientContext = createContext<WixClient | null | undefined>(
+  undefined
+)
 
 export const WixClientContextProvider = ({
   children,
@@ -12,17 +17,8 @@ export const WixClientContextProvider = ({
   const [wixClient, setWixClient] = useState<WixClient | null>(null)
 
   useEffect(() => {
-    // Create client with visitor token generation (like in getHeader)
-    const client = createClient({
-      modules: {
-        // Add modules as needed
-      },
-      auth: OAuthStrategy({
-        clientId: process.env.NEXT_PUBLIC_WIX_CLIENT_ID!,
-      }),
-    })
+    const client = createWixAppClient()
 
-    // Generate visitor tokens for anonymous access
     client.auth.generateVisitorTokens().then((tokens) => {
       client.auth.setTokens(tokens)
       setWixClient(client)

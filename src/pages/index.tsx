@@ -1,40 +1,55 @@
-import { Hero } from "@/components/Hero"
-import { TwoColumSection } from "@/components/TwoColumSection"
-import { CarrouselAnnouncement } from "@/components/CarouselAnnouncement"
-import { LocationColumns } from "@/components/LocationColumns"
-import { Footer } from "@/components/Footer"
+import type { GetStaticProps, InferGetStaticPropsType } from "next"
+import { HomePageContent } from "@/components/HomePageContent"
+import {
+  fetchAboutSectionItemServer,
+  fetchHeroItemServer,
+  fetchShowcaseItemsServer,
+  fetchWeAreHiringItemServer,
+} from "@/api/wix"
 
-export default function Home() {
-  const aboutSectionDate = {
-    title: "About Us",
-    subtitle: "Food, service & a vibe you'll look forward to every time.",
-    paragraph:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaeiusmod tempor incididunt ut labore et.",
-    aboutSectionImage:
-      "wix:image://v1/72a73c_0fa4bf0b066e4f80892f028f08a823eb~mv2.jpg/3Y1A5460.jpg#originWidth=6398&originHeight=4266",
-    buttonText: "Learn More",
-    link: "",
+type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>
+
+function serializeForNextProps<T>(value: T): T {
+  if (value instanceof Date) {
+    return value.toISOString() as T
   }
-  const weAreHiring = {
-    title: "We Are Hiring",
-    subtitle: "Want to join us behind the counter?",
-    paragraph:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaeiusmod tempor incididunt ut labore et.",
-    aboutSectionImage:
-      "wix:image://v1/72a73c_0fa4bf0b066e4f80892f028f08a823eb~mv2.jpg/3Y1A5460.jpg#originWidth=6398&originHeight=4266",
-    buttonText: "Apply Now",
-    link: "",
+  if (Array.isArray(value)) {
+    return value.map((item) => serializeForNextProps(item)) as T
   }
+  if (value && typeof value === "object") {
+    const entries = Object.entries(value as Record<string, unknown>).map(
+      ([key, nested]) => [key, serializeForNextProps(nested)]
+    )
+    return Object.fromEntries(entries) as T
+  }
+  return value
+}
 
-  return (
-    <div className="h-full items-center justify-items-center overflow-hidden">
-      <Hero heroData={undefined} />
-      <TwoColumSection content={aboutSectionDate} />
+export default function Home(props: HomePageProps) {
+  return <HomePageContent {...props} />
+}
 
-      <CarrouselAnnouncement />
-      <TwoColumSection content={weAreHiring} contentRight={true} />
-      <LocationColumns content={weAreHiring} />
-      <Footer />
-    </div>
-  )
+export const getStaticProps: GetStaticProps<{
+  heroData: Awaited<ReturnType<typeof fetchHeroItemServer>>
+  aboutData: Awaited<ReturnType<typeof fetchAboutSectionItemServer>>
+  hiringData: Awaited<ReturnType<typeof fetchWeAreHiringItemServer>>
+  showcaseData: Awaited<ReturnType<typeof fetchShowcaseItemsServer>>
+}> = async () => {
+  const [heroData, aboutData, hiringData, showcaseData] = await Promise.all([
+    fetchHeroItemServer(),
+    fetchAboutSectionItemServer(),
+    fetchWeAreHiringItemServer(),
+    fetchShowcaseItemsServer(),
+  ])
+
+  return {
+    props: {
+      heroData: serializeForNextProps(heroData),
+      aboutData: serializeForNextProps(aboutData),
+      hiringData: serializeForNextProps(hiringData),
+      showcaseData: serializeForNextProps(showcaseData),
+    },
+    // ISR: regenerate in background at most once every 5 minutes.
+    revalidate: 300,
+  }
 }

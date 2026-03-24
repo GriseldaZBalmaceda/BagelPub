@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+
 export const Footer = () => {
   // Now you can destructure the hero data
 
@@ -22,7 +23,10 @@ export const Footer = () => {
             id="firstName"
             defaultValue="Pedro Duarte"
           />
-          <button>hi</button>
+
+          <label className="Label" htmlFor="c1">
+            Accept terms and conditions.
+          </label>
         </div>
       </div>
       <div className="flex w-1/2 flex-row justify-items-start p-10 gap-4">
